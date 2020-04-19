@@ -10,7 +10,14 @@ module.exports = class ElectronOnline extends EventEmitter {
 
     const init = () => {
       debug('Creating browser window')
-      this.statusWindow = new BrowserWindow({ width: 0, height: 0, show: false })
+      this.statusWindow = new BrowserWindow({ 
+        width: 0, 
+        height: 0, 
+        show: false, 
+        webPreferences: {
+          nodeIntegration: true
+        }
+      })
       this.statusWindow.loadURL(`file://${__dirname}/index.html`)
 
       ipcMain.on('status-changed', (event, status) => {
